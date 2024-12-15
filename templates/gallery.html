@@ -11,15 +11,15 @@
 <section class="gallery-section py-5">
     <div class="container-fluid px-4">
         <div class="row g-2">
-            {% for i in range(16) %}
-            <div class="col-md-3">
+            {% for i in range(8) %}
+            <div class="col-md-3 mb-4">
                 <div class="gallery-item">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal{{ i }}">
-                        <img src="{{ url_for('static', filename='images/about.png' if i % 4 == 0 else ('images/oden.jpg' if i % 4 == 1 else ('images/interior1.jpg' if i % 4 == 2 else 'images/interior2.jpg'))) }}" 
+                        <img src="{{ url_for('static', filename='images/about.png' if i % 2 == 0 else 'images/oden.jpg') }}" 
                              class="img-fluid rounded gallery-thumbnail" 
                              alt="ギャラリー画像 {{ i + 1 }}">
                         <div class="gallery-caption">
-                            <p>{{ '調理風景' if i % 4 == 0 else ('おでん' if i % 4 == 1 else ('店内1' if i % 4 == 2 else '店内2')) }}</p>
+                            <p>{{ '調理風景' if i % 2 == 0 else 'おでん' }}</p>
                         </div>
                     </a>
                 </div>
