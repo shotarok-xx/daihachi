@@ -175,6 +175,7 @@ body {
 
 .social-feed-section .card-title {
     color: #d35400;
+    font-size: 1.2rem; /* Changed font size here */
     margin-bottom: 1.5rem;
 }
 
