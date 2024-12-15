@@ -18,9 +18,6 @@
                         <img src="{{ url_for('static', filename='images/about.png' if i % 2 == 0 else 'images/oden.jpg') }}" 
                              class="img-fluid rounded gallery-thumbnail" 
                              alt="ギャラリー画像 {{ i + 1 }}">
-                        <div class="gallery-caption">
-                            <p>{{ '調理風景' if i % 2 == 0 else 'おでん' }}</p>
-                        </div>
                     </a>
                 </div>
             </div>

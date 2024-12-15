@@ -222,17 +222,7 @@ body {
     object-fit: cover;
 }
 
-.gallery-caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
-    color: white;
-    padding: 1rem 0.5rem 0.5rem;
-    text-align: center;
-    font-size: 0.9rem;
-}
+
 
 /* Modal styles */
 .modal-body {
