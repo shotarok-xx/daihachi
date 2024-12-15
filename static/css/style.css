@@ -234,11 +234,6 @@ body {
     font-size: 0.8rem;
 }
 
-/* Custom column width for gallery */
-.col-lg-1-5 {
-    width: 12.5%;
-}
-
 /* Modal styles */
 .modal-body {
     padding: 0;

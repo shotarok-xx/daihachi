@@ -12,7 +12,7 @@
     <div class="container-fluid px-4">
         <div class="row g-2">
             {% for i in range(16) %}
-            <div class="col-md-3 col-lg-1-5">
+            <div class="col-md-3">
                 <div class="gallery-item">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal{{ i }}">
                         <img src="{{ url_for('static', filename='images/about.png' if i % 4 == 0 else ('images/oden.jpg' if i % 4 == 1 else ('images/interior1.jpg' if i % 4 == 2 else 'images/interior2.jpg'))) }}" 
