@@ -15,7 +15,7 @@
             <div class="col-md-3 mb-4">
                 <div class="gallery-item">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal{{ i }}">
-                        <img src="{{ url_for('static', filename='images/about.png' if i % 2 == 0 else 'images/oden.jpg') }}" 
+                        <img src="{{ 'https://images.unsplash.com/photo-1514575110897-1253ff7b2ccb' if i % 2 == 0 else 'https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e' }}" 
                              class="img-fluid rounded gallery-thumbnail" 
                              alt="ギャラリー画像 {{ i + 1 }}">
                     </a>
