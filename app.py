@@ -40,6 +40,10 @@ def store():
 def news():
     posts = NewsPost.query.order_by(NewsPost.date.desc()).all()
     return render_template('news.html', posts=posts)
+@app.route('/social')
+def social():
+    return render_template('social.html')
+
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():

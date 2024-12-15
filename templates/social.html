@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="social-header py-5 bg-light">
+    <div class="container">
+        <h1 class="text-center">SNS</h1>
+        <p class="text-center">最新情報はSNSでチェック！</p>
+    </div>
+</div>
+
+<section class="social-feed-section py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Instagram Feed -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title"><i class="fab fa-instagram"></i> Instagram</h3>
+                        <div class="instagram-feed">
+                            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/PLACEHOLDER/" 
+                                data-instgrm-version="14">
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Twitter Feed -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title"><i class="fab fa-twitter"></i> Twitter</h3>
+                        <div class="twitter-feed">
+                            <a class="twitter-timeline" data-height="500" href="https://twitter.com/PLACEHOLDER">
+                                Tweets by おでん屋
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Facebook Feed -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title"><i class="fab fa-facebook"></i> Facebook</h3>
+                        <div class="facebook-feed">
+                            <div class="fb-page" 
+                                data-href="https://www.facebook.com/PLACEHOLDER"
+                                data-tabs="timeline" 
+                                data-width="" 
+                                data-height="500" 
+                                data-small-header="false" 
+                                data-adapt-container-width="true" 
+                                data-hide-cover="false" 
+                                data-show-facepile="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Social Media SDKs -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v18.0"></script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script async src="//www.instagram.com/embed.js"></script>
+{% endblock %}
