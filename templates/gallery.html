@@ -9,40 +9,39 @@
 </div>
 
 <section class="gallery-section py-5">
-    <div class="container">
-        <div class="row g-4">
-            <div class="col-md-4">
+    <div class="container-fluid px-4">
+        <div class="row g-2">
+            {% for i in range(16) %}
+            <div class="col-md-3 col-lg-1-5">
                 <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='images/about.png') }}" class="img-fluid rounded" alt="おでんを調理する様子">
-                    <div class="gallery-caption">
-                        <p>熟練の職人による丁寧な仕込み</p>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal{{ i }}">
+                        <img src="{{ url_for('static', filename='images/about.png' if i % 4 == 0 else ('images/oden.jpg' if i % 4 == 1 else ('images/interior1.jpg' if i % 4 == 2 else 'images/interior2.jpg'))) }}" 
+                             class="img-fluid rounded gallery-thumbnail" 
+                             alt="ギャラリー画像 {{ i + 1 }}">
+                        <div class="gallery-caption">
+                            <p>{{ '調理風景' if i % 4 == 0 else ('おでん' if i % 4 == 1 else ('店内1' if i % 4 == 2 else '店内2')) }}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="galleryModal{{ i }}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{ '調理風景' if i % 4 == 0 else ('おでん' if i % 4 == 1 else ('店内1' if i % 4 == 2 else '店内2')) }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{{ url_for('static', filename='images/about.png' if i % 4 == 0 else ('images/oden.jpg' if i % 4 == 1 else ('images/interior1.jpg' if i % 4 == 2 else 'images/interior2.jpg'))) }}" 
+                                 class="img-fluid" 
+                                 alt="ギャラリー画像 {{ i + 1 }}">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="gallery-item">
-                    <img src="{{ url_for('static', filename='images/oden.jpg') }}" class="img-fluid rounded" alt="おでんの具材">
-                    <div class="gallery-caption">
-                        <p>厳選された季節の具材</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1504416285472-eccf03dd31eb" class="img-fluid rounded" alt="店内の雰囲気">
-                    <div class="gallery-caption">
-                        <p>落ち着いた店内の様子</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1534349762230-e0cadf78f5da" class="img-fluid rounded" alt="カウンター席">
-                    <div class="gallery-caption">
-                        <p>カウンター席でゆっくりとお食事を</p>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
