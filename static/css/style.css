@@ -1,3 +1,10 @@
+/* Navbar Logo Styling */
+.navbar-logo {
+    height: 40px;
+    width: auto;
+    margin-right: 1rem;
+}
+
 /* Base styles */
 body {
     font-family: 'Noto Sans JP', sans-serif;
