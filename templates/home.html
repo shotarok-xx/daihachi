@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero-section" style="background-image: url('https://images.unsplash.com/photo-1470256699805-a29e1b58598a')">
+    <div class="container">
+        <div class="hero-content">
+            <h1>伝統の味 おでん屋</h1>
+            <p>心温まる日本の味をお届けします</p>
+        </div>
+    </div>
+</div>
+
+<section class="featured-items py-5">
+    <div class="container">
+        <h2 class="section-title">おすすめメニュー</h2>
+        <div class="row">
+            {% for item in featured_items %}
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601" class="card-img-top" alt="{{ item.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p class="card-text">{{ item.description }}</p>
+                        <p class="price">¥{{ item.price }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="about-section py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="https://images.unsplash.com/photo-1523865236457-3ae3358a4eaa" class="img-fluid rounded" alt="Restaurant interior">
+            </div>
+            <div class="col-md-6">
+                <h2 class="section-title">私たちについて</h2>
+                <p>50年以上の歴史を持つ当店は、伝統的な味と現代的なおもてなしを融合させた空間です。厳選された食材と丁寧な仕込みで、本場の味をお楽しみいただけます。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="news-section py-5">
+    <div class="container">
+        <h2 class="section-title">お知らせ</h2>
+        <div class="row">
+            {% for post in latest_news %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p class="card-text">{{ post.content[:100] }}...</p>
+                        <p class="text-muted">{{ post.date.strftime('%Y年%m月%d日') }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

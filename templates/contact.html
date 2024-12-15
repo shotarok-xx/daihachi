@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="contact-header py-5 bg-light">
+    <div class="container">
+        <h1 class="text-center">お問い合わせ</h1>
+    </div>
+</div>
+
+<section class="contact-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <form method="POST" action="{{ url_for('contact') }}">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">お名前</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">メールアドレス</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">メッセージ</label>
+                        <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">送信</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-8 offset-md-2">
+                <h2>その他の連絡方法</h2>
+                <div class="contact-info mt-4">
+                    <p><i class="fas fa-phone"></i> 03-XXXX-XXXX</p>
+                    <p><i class="fas fa-envelope"></i> info@oden-ya.jp</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 東京都XX区XX町X-X-X</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="menu-header py-5 bg-light">
+    <div class="container">
+        <h1 class="text-center">お品書き</h1>
+    </div>
+</div>
+
+<section class="menu-section py-5">
+    <div class="container">
+        <h2 class="section-title">おでん</h2>
+        <div class="row">
+            {% for item in oden_items %}
+            <div class="col-md-4 mb-4">
+                <div class="menu-item">
+                    <h3>{{ item.name }} <small>{{ item.name_jp }}</small></h3>
+                    <p class="description">{{ item.description }}</p>
+                    <p class="price">¥{{ item.price }}</p>
+                    {% if item.allergens %}
+                    <p class="allergens"><small>アレルギー: {{ item.allergens }}</small></p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h2 class="section-title mt-5">お飲み物</h2>
+        <div class="row">
+            {% for item in drinks %}
+            <div class="col-md-4 mb-4">
+                <div class="menu-item">
+                    <h3>{{ item.name }}</h3>
+                    <p class="description">{{ item.description }}</p>
+                    <p class="price">¥{{ item.price }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h2 class="section-title mt-5">おつまみ</h2>
+        <div class="row">
+            {% for item in sides %}
+            <div class="col-md-4 mb-4">
+                <div class="menu-item">
+                    <h3>{{ item.name }}</h3>
+                    <p class="description">{{ item.description }}</p>
+                    <p class="price">¥{{ item.price }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
