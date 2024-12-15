@@ -62,4 +62,44 @@
         </div>
     </div>
 </section>
+
+<section class="gallery-preview py-5">
+    <div class="container">
+        <h2 class="section-title">ギャラリー</h2>
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <a href="{{ url_for('gallery') }}" class="gallery-thumbnail">
+                    <img src="{{ url_for('static', filename='images/about.png') }}" class="img-fluid rounded" alt="料理風景">
+                    <div class="gallery-caption">
+                        <p>料理風景</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 mb-4">
+                <a href="{{ url_for('gallery') }}" class="gallery-thumbnail">
+                    <img src="{{ url_for('static', filename='images/oden.jpg') }}" class="img-fluid rounded" alt="おでんの具材">
+                    <div class="gallery-caption">
+                        <p>おでんの具材</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 mb-4">
+                <a href="{{ url_for('gallery') }}" class="gallery-thumbnail">
+                    <img src="{{ url_for('static', filename='スクリーンショット 2024-12-15 21.48.37.png') }}" class="img-fluid rounded" alt="調理風景">
+                    <div class="gallery-caption">
+                        <p>調理風景</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 mb-4">
+                <a href="{{ url_for('gallery') }}" class="gallery-thumbnail text-center">
+                    <div class="more-photos">
+                        <i class="fas fa-images fa-3x"></i>
+                        <p>もっと見る</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

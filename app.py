@@ -44,6 +44,10 @@ def news():
 def social():
     return render_template('social.html')
 
+@app.route('/gallery')
+def gallery():
+    return render_template('gallery.html')
+
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():

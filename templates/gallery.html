@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="gallery-header py-5 bg-light">
+    <div class="container">
+        <h1 class="text-center">フォトギャラリー</h1>
+        <p class="text-center">お店の雰囲気をご覧ください</p>
+    </div>
+</div>
+
+<section class="gallery-section py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="gallery-item">
+                    <img src="{{ url_for('static', filename='images/about.png') }}" class="img-fluid rounded" alt="おでんを調理する様子">
+                    <div class="gallery-caption">
+                        <p>熟練の職人による丁寧な仕込み</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="gallery-item">
+                    <img src="{{ url_for('static', filename='images/oden.jpg') }}" class="img-fluid rounded" alt="おでんの具材">
+                    <div class="gallery-caption">
+                        <p>厳選された季節の具材</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1504416285472-eccf03dd31eb" class="img-fluid rounded" alt="店内の雰囲気">
+                    <div class="gallery-caption">
+                        <p>落ち着いた店内の様子</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1534349762230-e0cadf78f5da" class="img-fluid rounded" alt="カウンター席">
+                    <div class="gallery-caption">
+                        <p>カウンター席でゆっくりとお食事を</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
