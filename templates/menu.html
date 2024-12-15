@@ -17,7 +17,7 @@
                     <img src="{{ url_for('static', filename='images/oden.jpg') }}" class="img-fluid mb-3 rounded" alt="{{ item.name }}">
                     <h3>{{ item.name }} <small>{{ item.name_jp }}</small></h3>
                     <p class="description">{{ item.description }}</p>
-                    <p class="price">{{ item.price }}円</p>
+                    <p class="price">{{ item.price|int }}円</p>
                     {% if item.allergens %}
                     <p class="allergens"><small>アレルギー: {{ item.allergens }}</small></p>
                     {% endif %}
@@ -33,7 +33,7 @@
                 <div class="menu-item">
                     <h3>{{ item.name }}</h3>
                     <p class="description">{{ item.description }}</p>
-                    <p class="price">{{ item.price }}円</p>
+                    <p class="price">{{ item.price|int }}円</p>
                 </div>
             </div>
             {% endfor %}
@@ -46,7 +46,7 @@
                 <div class="menu-item">
                     <h3>{{ item.name }}</h3>
                     <p class="description">{{ item.description }}</p>
-                    <p class="price">{{ item.price }}円</p>
+                    <p class="price">{{ item.price|int }}円</p>
                 </div>
             </div>
             {% endfor %}
