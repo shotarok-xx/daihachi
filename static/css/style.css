@@ -70,6 +70,13 @@ body {
     transition: all 0.3s ease;
 }
 
+.menu-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
 .menu-item:hover {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
