@@ -190,12 +190,25 @@ body {
 
 .social-links a {
     color: #333;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    display: block;
+    padding: 2rem;
+    border-radius: 8px;
+    text-decoration: none;
 }
 
 .social-links a:hover {
     color: #d35400;
-    text-decoration: none;
+    background-color: rgba(211, 84, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.share-buttons a {
+    transition: all 0.3s ease;
+}
+
+.share-buttons a:hover {
+    transform: translateY(-2px);
 }
 
 .social-links i {

@@ -19,6 +19,18 @@
                         <div class="card-text">
                             {{ post.content }}
                         </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <div class="share-buttons mt-3">
+                                <a href="https://twitter.com/intent/tweet?text={{ post.title|urlencode }}&url={{ request.url|urlencode }}" 
+                                   class="btn btn-outline-primary btn-sm me-2" target="_blank">
+                                    <i class="fab fa-x-twitter"></i> シェア
+                                </a>
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url|urlencode }}" 
+                                   class="btn btn-outline-primary btn-sm" target="_blank">
+                                    <i class="fab fa-facebook"></i> シェア
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
