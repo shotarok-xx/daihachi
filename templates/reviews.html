@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="reviews-header py-5 bg-light">
+    <div class="container">
+        <h1 class="text-center">お客様の声</h1>
+    </div>
+</div>
+
+<section class="reviews-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                {% for review in reviews %}
+                <div class="review-card mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="review-content">
+                                <p class="review-text mb-3">{{ review.content }}</p>
+                                <div class="review-meta">
+                                    <span class="author">{{ review.author }}</span>
+                                    <span class="date text-muted">{{ review.date.strftime('%Y年%m月%d日') }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

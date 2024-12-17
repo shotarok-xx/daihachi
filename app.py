@@ -17,7 +17,7 @@ app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
 }
 db.init_app(app)
 
-from models import MenuItem, NewsPost, ContactMessage
+from models import MenuItem, NewsPost, ContactMessage, Review
 
 @app.route('/')
 def home():
@@ -41,6 +41,11 @@ def news():
     posts = NewsPost.query.order_by(NewsPost.date.desc()).all()
     return render_template('news.html', posts=posts)
 @app.route('/social')
+@app.route('/reviews')
+def reviews():
+    reviews = Review.query.order_by(Review.date.desc()).all()
+    return render_template('reviews.html', reviews=reviews)
+
 def social():
     return render_template('social.html')
 
@@ -72,6 +77,35 @@ def contact():
     return render_template('contact.html')
 
 def add_sample_data():
+    # Sample reviews
+    reviews = [
+        Review(
+            author="Nak",
+            content="店主は、塩対応ですが、おでんは美味しいです。ポテトはマックより美味しいです。"
+        ),
+        Review(
+            author="May",
+            content="店主と仲良くなると出汁もらえます。"
+        ),
+        Review(
+            author="Kom",
+            content="お酒もちゃんと美味しいです。お客さんに合わせた濃淡も考えてくれる店主なのでついついおかわりしてしまいます。"
+        ),
+        Review(
+            author="Kao",
+            content="マスターも常連さんもみんないい人です。おでんが食べたいなら早めに。"
+        ),
+        Review(
+            author="Ik",
+            content="アットホームな会社です。"
+        )
+    ]
+    
+    for review in reviews:
+        existing = Review.query.filter_by(author=review.author).first()
+        if not existing:
+            db.session.add(review)
+    
     # Sample menu items - Oden
     oden_items = [
         MenuItem(name='大根', name_jp='だいこん', description='じっくり煮込んだ大根です', price=200, category='oden', featured=True),

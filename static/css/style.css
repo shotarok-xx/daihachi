@@ -277,3 +277,41 @@ body {
 .more-photos i {
     margin-bottom: 1rem;
 }
+
+/* Reviews styles */
+.review-card {
+    transition: transform 0.3s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+}
+
+.review-content {
+    position: relative;
+    padding: 1rem;
+}
+
+.review-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.review-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.review-meta .author {
+    font-weight: bold;
+    color: #d35400;
+}
+
+.review-meta .date {
+    font-size: 0.9rem;
+}

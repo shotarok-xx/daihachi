@@ -23,3 +23,10 @@ class ContactMessage(db.Model):
     email = db.Column(db.String(120), nullable=False)
     message = db.Column(db.Text, nullable=False)
     date = db.Column(db.DateTime, default=datetime.utcnow)
+
+class Review(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    author = db.Column(db.String(100), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    image_path = db.Column(db.String(200))
+    date = db.Column(db.DateTime, default=datetime.utcnow)
