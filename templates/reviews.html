@@ -11,15 +11,53 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                {% for review in reviews %}
+                {% for review in reviews if review.author != 'Ik' %}
                 <div class="review-card mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <div class="review-content">
-                                <p class="review-text mb-3">{{ review.content }}</p>
-                                <div class="review-meta">
-                                    <span class="author">{{ review.author }}</span>
-                                    <span class="date text-muted">{{ review.date.strftime('%Y年%m月%d日') }}</span>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    {% if review.image_path %}
+                                    <div class="review-image-container">
+                                        <img src="{{ url_for('static', filename=review.image_path) }}" class="img-fluid rounded-circle review-image" alt="{{ review.author }}様の写真">
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="review-content">
+                                        <p class="review-text mb-3">{{ review.content }}</p>
+                                        <div class="review-meta">
+                                            <span class="author">{{ review.author }}</span>
+                                            <span class="date text-muted">{{ review.date.strftime('%Y年%m月%d日') }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                {% for review in reviews if review.author == 'Ik' %}
+                <div class="review-card mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    {% if review.image_path %}
+                                    <div class="review-image-container">
+                                        <img src="{{ url_for('static', filename=review.image_path) }}" class="img-fluid rounded-circle review-image" alt="{{ review.author }}様の写真">
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="review-content">
+                                        <p class="review-text mb-3">{{ review.content }}</p>
+                                        <div class="review-meta">
+                                            <span class="author">{{ review.author }}</span>
+                                            <span class="date text-muted">{{ review.date.strftime('%Y年%m月%d日') }}</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

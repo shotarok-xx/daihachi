@@ -81,23 +81,28 @@ def add_sample_data():
     reviews = [
         Review(
             author="Nak",
-            content="店主は、塩対応ですが、おでんは美味しいです。ポテトはマックより美味しいです。"
+            content="店主は、塩対応ですが、おでんは美味しいです。ポテトはマックより美味しいです。",
+            image_path="static/images/reviews/nak.jpg"
         ),
         Review(
             author="May",
-            content="店主と仲良くなると出汁もらえます。"
+            content="店主と仲良くなると出汁もらえます。",
+            image_path="static/images/reviews/may.jpg"
         ),
         Review(
             author="Kom",
-            content="お酒もちゃんと美味しいです。お客さんに合わせた濃淡も考えてくれる店主なのでついついおかわりしてしまいます。"
+            content="お酒もちゃんと美味しいです。お客さんに合わせた濃淡も考えてくれる店主なのでついついおかわりしてしまいます。",
+            image_path="static/images/reviews/kom.jpg"
         ),
         Review(
             author="Kao",
-            content="マスターも常連さんもみんないい人です。おでんが食べたいなら早めに。"
+            content="マスターも常連さんもみんないい人です。おでんが食べたいなら早めに。",
+            image_path="static/images/reviews/kao.jpg"
         ),
         Review(
             author="Ik",
-            content="アットホームな会社です。"
+            content="アットホームな会社です。",
+            image_path="static/images/reviews/ik.jpg"
         )
     ]
     
