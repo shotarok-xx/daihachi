@@ -10,7 +10,9 @@ class Base(DeclarativeBase):
 db = SQLAlchemy(model_class=Base)
 app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY") or "a secret key"
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL", "sqlite:///oden.db")
+
+# Configure database
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
     "pool_recycle": 300,
     "pool_pre_ping": True,
@@ -97,7 +99,7 @@ def add_sample_data():
         Review(
             author="Kao",
             content="マスターも常連さんもみんないい人です。おでんが食べたいなら早めに。",
-            image_path="static/images/reviews/kao.jpg"
+            image_path="static/images/スクリーンショット 2024-12-18 16.05.07.png"
         ),
         Review(
             author="Ik",
