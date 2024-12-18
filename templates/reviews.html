@@ -16,7 +16,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-1">
                                     <div class="review-image-container">
                                         {% if review.image_path %}
                                             <img src="{{ url_for('static', filename=review.image_path) }}" class="img-fluid rounded-circle review-image" alt="{{ review.author }}様の写真">
@@ -27,7 +27,7 @@
                                         {% endif %}
                                     </div>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-11">
                                     <div class="review-content">
                                         <p class="review-text mb-3">{{ review.content }}</p>
                                         <div class="review-meta">
@@ -47,7 +47,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-1">
                                     <div class="review-image-container">
                                         {% if review.image_path %}
                                             <img src="{{ url_for('static', filename=review.image_path) }}" class="img-fluid rounded-circle review-image" alt="{{ review.author }}様の写真">
@@ -58,7 +58,7 @@
                                         {% endif %}
                                     </div>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-11">
                                     <div class="review-content">
                                         <p class="review-text mb-3">{{ review.content }}</p>
                                         <div class="review-meta">
