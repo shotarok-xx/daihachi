@@ -40,12 +40,12 @@ def store():
 def news():
     posts = NewsPost.query.order_by(NewsPost.date.desc()).all()
     return render_template('news.html', posts=posts)
-@app.route('/social')
 @app.route('/reviews')
 def reviews():
     reviews = Review.query.order_by(Review.date.desc()).all()
     return render_template('reviews.html', reviews=reviews)
 
+@app.route('/social')
 def social():
     return render_template('social.html')
 
