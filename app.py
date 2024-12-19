@@ -1,8 +1,17 @@
 import os
+import logging
+from datetime import datetime
 from flask import Flask, render_template, request, flash, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
-from datetime import datetime
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
+# Configure logging
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 class Base(DeclarativeBase):
     pass
@@ -12,14 +21,24 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY") or "a secret key"
 
 # Configure database
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+database_url = os.environ.get("DATABASE_URL")
+if not database_url:
+    logger.error("DATABASE_URL environment variable is not set")
+    raise ValueError("DATABASE_URL environment variable is required")
+
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url
 app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
     "pool_recycle": 300,
     "pool_pre_ping": True,
 }
-db.init_app(app)
+logger.info(f"Database URL configured: {database_url.split('@')[1] if '@' in database_url else 'Invalid URL format'}")
 
+db.init_app(app)
+logger.info("Database initialization completed")
+
+# Import models after db initialization to avoid circular imports
 from models import MenuItem, NewsPost, ContactMessage, Review
+logger.info("Models imported successfully")
 
 @app.route('/')
 def home():
@@ -42,6 +61,7 @@ def store():
 def news():
     posts = NewsPost.query.order_by(NewsPost.date.desc()).all()
     return render_template('news.html', posts=posts)
+
 @app.route('/reviews')
 def reviews():
     reviews = Review.query.order_by(Review.date.desc()).all()
@@ -54,7 +74,6 @@ def social():
 @app.route('/gallery')
 def gallery():
     return render_template('gallery.html')
-
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -84,27 +103,27 @@ def add_sample_data():
         Review(
             author="Nak",
             content="店主は、塩対応ですが、おでんは美味しいです。ポテトはマックより美味しいです。",
-            image_path="static/images/reviews/nak.jpg"
+            image_path="images/reviews/nak.jpg"
         ),
         Review(
             author="May",
             content="店主と仲良くなると出汁もらえます。",
-            image_path="static/images/reviews/may.jpg"
+            image_path="images/reviews/may.jpg"
         ),
         Review(
             author="Kom",
             content="お酒もちゃんと美味しいです。お客さんに合わせた濃淡も考えてくれる店主なのでついついおかわりしてしまいます。",
-            image_path="static/images/reviews/kom.jpg"
+            image_path="images/reviews/kom.jpg"
         ),
         Review(
             author="Kao",
             content="マスターも常連さんもみんないい人です。おでんが食べたいなら早めに。",
-            image_path="static/images/スクリーンショット 2024-12-18 16.05.07.png"
+            image_path="images/スクリーンショット 2024-12-18 16.05.07.png"
         ),
         Review(
             author="Ik",
             content="アットホームな会社です。",
-            image_path="static/images/reviews/ik.jpg"
+            image_path="images/reviews/ik.jpg"
         )
     ]
     
@@ -159,6 +178,7 @@ def add_sample_data():
     
     db.session.commit()
 
+# Initialize database and add sample data when the app starts
 with app.app_context():
     db.create_all()
     add_sample_data()
