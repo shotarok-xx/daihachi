@@ -26,32 +26,150 @@ if not database_url:
     logger.error("DATABASE_URL environment variable is not set")
     raise ValueError("DATABASE_URL environment variable is required")
 
+# Fix potential incompatibility with some database URLs
+if database_url.startswith("postgres://"):
+    database_url = database_url.replace("postgres://", "postgresql://", 1)
+
 app.config["SQLALCHEMY_DATABASE_URI"] = database_url
 app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
     "pool_recycle": 300,
     "pool_pre_ping": True,
 }
-logger.info(f"Database URL configured: {database_url.split('@')[1] if '@' in database_url else 'Invalid URL format'}")
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
+logger.info(f"Configuring database connection...")
 db.init_app(app)
 logger.info("Database initialization completed")
 
 # Import models after db initialization to avoid circular imports
 from models import MenuItem, NewsPost, ContactMessage, Review
-logger.info("Models imported successfully")
+
+# Create all tables
+with app.app_context():
+    try:
+        logger.info("Creating database tables...")
+        db.create_all()
+        logger.info("Database tables created successfully")
+    except Exception as e:
+        logger.error(f"Error creating database tables: {str(e)}")
+        raise
+
+def add_sample_data():
+    try:
+        # Sample reviews
+        reviews = [
+            Review(
+                author="Nak",
+                content="店主は、塩対応ですが、おでんは美味しいです。ポテトはマックより美味しいです。",
+                image_path="images/reviews/nak.jpg"
+            ),
+            Review(
+                author="May",
+                content="店主と仲良くなると出汁もらえます。",
+                image_path="images/reviews/may.jpg"
+            ),
+            Review(
+                author="Kom",
+                content="お酒もちゃんと美味しいです。お客さんに合わせた濃淡も考えてくれる店主なのでついついおかわりしてしまいます。",
+                image_path="images/reviews/kom.jpg"
+            ),
+            Review(
+                author="Kao",
+                content="マスターも常連さんもみんないい人です。おでんが食べたいなら早めに。",
+                image_path="images/スクリーンショット 2024-12-18 16.05.07.png"
+            ),
+            Review(
+                author="Ik",
+                content="アットホームな会社です。",
+                image_path="images/reviews/ik.jpg"
+            )
+        ]
+
+        for review in reviews:
+            existing = Review.query.filter_by(author=review.author).first()
+            if not existing:
+                db.session.add(review)
+
+        # Sample menu items - Oden
+        oden_items = [
+            MenuItem(name='大根', name_jp='だいこん', description='じっくり煮込んだ大根です', price=200, category='oden', featured=True),
+            MenuItem(name='玉子', name_jp='たまご', description='トロトロの半熟玉子', price=180, category='oden', featured=True),
+            MenuItem(name='こんにゃく', name_jp='こんにゃく', description='歯ごたえのある手作りこんにゃく', price=150, category='oden'),
+            MenuItem(name='牛すじ', name_jp='ぎゅうすじ', description='柔らかく煮込んだ牛すじ', price=300, category='oden', featured=True)
+        ]
+
+        # Sample menu items - Drinks
+        drinks = [
+            MenuItem(name='生ビール', description='冷えた生ビール', price=500, category='drinks'),
+            MenuItem(name='日本酒', description='地元の銘酒', price=600, category='drinks'),
+            MenuItem(name='焼酎', description='芋焼酎・麦焼酎', price=500, category='drinks')
+        ]
+
+        # Sample menu items - Sides
+        sides = [
+            MenuItem(name='枝豆', description='塩茹でした枝豆', price=300, category='sides'),
+            MenuItem(name='冷奴', description='冷やっこ', price=250, category='sides'),
+            MenuItem(name='たこわさ', description='新鮮なたこわさび', price=400, category='sides')
+        ]
+
+        # Sample news posts
+        news_posts = [
+            NewsPost(title='年末年始の営業について', 
+                    content='12月30日から1月3日まで休業とさせていただきます。'),
+            NewsPost(title='新メニュー追加のお知らせ', 
+                    content='季節限定の牛すじおでんが新登場！トロトロに煮込んだ牛すじをぜひご賞味ください。'),
+            NewsPost(title='営業時間変更のお知らせ', 
+                    content='12月1日より、営業時間を17時から23時に変更いたしました。')
+        ]
+
+        # Add all items to database
+        for items in [oden_items, drinks, sides]:
+            for item in items:
+                existing = MenuItem.query.filter_by(name=item.name).first()
+                if not existing:
+                    db.session.add(item)
+
+        for post in news_posts:
+            existing = NewsPost.query.filter_by(title=post.title).first()
+            if not existing:
+                db.session.add(post)
+
+        db.session.commit()
+        logger.info("Sample data added successfully")
+    except Exception as e:
+        logger.error(f"Error adding sample data: {str(e)}")
+        db.session.rollback()
+
+# Initialize database and add sample data when the app starts
+
+with app.app_context():
+    try:
+        add_sample_data()
+        logger.info("Database initialization and sample data addition completed")
+    except Exception as e:
+        logger.error(f"Error during database initialization: {str(e)}")
+
 
 @app.route('/')
 def home():
-    featured_items = MenuItem.query.filter_by(featured=True).all()
-    latest_news = NewsPost.query.order_by(NewsPost.date.desc()).limit(3).all()
-    return render_template('home.html', featured_items=featured_items, latest_news=latest_news)
+    try:
+        featured_items = MenuItem.query.filter_by(featured=True).all()
+        latest_news = NewsPost.query.order_by(NewsPost.date.desc()).limit(3).all()
+        return render_template('home.html', featured_items=featured_items, latest_news=latest_news)
+    except Exception as e:
+        logger.error(f"Error in home route: {str(e)}")
+        return "An error occurred", 500
 
 @app.route('/menu')
 def menu():
-    oden_items = MenuItem.query.filter_by(category='oden').all()
-    drinks = MenuItem.query.filter_by(category='drinks').all()
-    sides = MenuItem.query.filter_by(category='sides').all()
-    return render_template('menu.html', oden_items=oden_items, drinks=drinks, sides=sides)
+    try:
+        oden_items = MenuItem.query.filter_by(category='oden').all()
+        drinks = MenuItem.query.filter_by(category='drinks').all()
+        sides = MenuItem.query.filter_by(category='sides').all()
+        return render_template('menu.html', oden_items=oden_items, drinks=drinks, sides=sides)
+    except Exception as e:
+        logger.error(f"Error in menu route: {str(e)}")
+        return "An error occurred", 500
 
 @app.route('/store')
 def store():
@@ -59,13 +177,21 @@ def store():
 
 @app.route('/news')
 def news():
-    posts = NewsPost.query.order_by(NewsPost.date.desc()).all()
-    return render_template('news.html', posts=posts)
+    try:
+        posts = NewsPost.query.order_by(NewsPost.date.desc()).all()
+        return render_template('news.html', posts=posts)
+    except Exception as e:
+        logger.error(f"Error in news route: {str(e)}")
+        return "An error occurred", 500
 
 @app.route('/reviews')
 def reviews():
-    reviews = Review.query.order_by(Review.date.desc()).all()
-    return render_template('reviews.html', reviews=reviews)
+    try:
+        reviews = Review.query.order_by(Review.date.desc()).all()
+        return render_template('reviews.html', reviews=reviews)
+    except Exception as e:
+        logger.error(f"Error in reviews route: {str(e)}")
+        return "An error occurred", 500
 
 @app.route('/social')
 def social():
@@ -78,107 +204,25 @@ def gallery():
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
-        name = request.form.get('name')
-        email = request.form.get('email')
-        message = request.form.get('message')
-        
-        if not all([name, email, message]):
-            flash('全ての項目を入力してください。', 'danger')
-        else:
-            contact_message = ContactMessage(
-                name=name,
-                email=email,
-                message=message
-            )
-            db.session.add(contact_message)
-            db.session.commit()
-            flash('お問い合わせありがとうございます。', 'success')
-            return redirect(url_for('contact'))
-            
+        try:
+            name = request.form.get('name')
+            email = request.form.get('email')
+            message = request.form.get('message')
+
+            if not all([name, email, message]):
+                flash('全ての項目を入力してください。', 'danger')
+            else:
+                contact_message = ContactMessage(
+                    name=name,
+                    email=email,
+                    message=message
+                )
+                db.session.add(contact_message)
+                db.session.commit()
+                flash('お問い合わせありがとうございます。', 'success')
+                return redirect(url_for('contact'))
+        except Exception as e:
+            logger.error(f"Error in contact form submission: {str(e)}")
+            flash('エラーが発生しました。', 'danger')
+
     return render_template('contact.html')
-
-def add_sample_data():
-    # Sample reviews
-    reviews = [
-        Review(
-            author="Nak",
-            content="店主は、塩対応ですが、おでんは美味しいです。ポテトはマックより美味しいです。",
-            image_path="images/reviews/nak.jpg"
-        ),
-        Review(
-            author="May",
-            content="店主と仲良くなると出汁もらえます。",
-            image_path="images/reviews/may.jpg"
-        ),
-        Review(
-            author="Kom",
-            content="お酒もちゃんと美味しいです。お客さんに合わせた濃淡も考えてくれる店主なのでついついおかわりしてしまいます。",
-            image_path="images/reviews/kom.jpg"
-        ),
-        Review(
-            author="Kao",
-            content="マスターも常連さんもみんないい人です。おでんが食べたいなら早めに。",
-            image_path="images/スクリーンショット 2024-12-18 16.05.07.png"
-        ),
-        Review(
-            author="Ik",
-            content="アットホームな会社です。",
-            image_path="images/reviews/ik.jpg"
-        )
-    ]
-    
-    for review in reviews:
-        existing = Review.query.filter_by(author=review.author).first()
-        if not existing:
-            db.session.add(review)
-    
-    # Sample menu items - Oden
-    oden_items = [
-        MenuItem(name='大根', name_jp='だいこん', description='じっくり煮込んだ大根です', price=200, category='oden', featured=True),
-        MenuItem(name='玉子', name_jp='たまご', description='トロトロの半熟玉子', price=180, category='oden', featured=True),
-        MenuItem(name='こんにゃく', name_jp='こんにゃく', description='歯ごたえのある手作りこんにゃく', price=150, category='oden'),
-        MenuItem(name='牛すじ', name_jp='ぎゅうすじ', description='柔らかく煮込んだ牛すじ', price=300, category='oden', featured=True)
-    ]
-    
-    # Sample menu items - Drinks
-    drinks = [
-        MenuItem(name='生ビール', description='冷えた生ビール', price=500, category='drinks'),
-        MenuItem(name='日本酒', description='地元の銘酒', price=600, category='drinks'),
-        MenuItem(name='焼酎', description='芋焼酎・麦焼酎', price=500, category='drinks')
-    ]
-    
-    # Sample menu items - Sides
-    sides = [
-        MenuItem(name='枝豆', description='塩茹でした枝豆', price=300, category='sides'),
-        MenuItem(name='冷奴', description='冷やっこ', price=250, category='sides'),
-        MenuItem(name='たこわさ', description='新鮮なたこわさび', price=400, category='sides')
-    ]
-    
-    # Sample news posts
-    news_posts = [
-        NewsPost(title='年末年始の営業について', 
-                content='12月30日から1月3日まで休業とさせていただきます。'),
-        NewsPost(title='新メニュー追加のお知らせ', 
-                content='季節限定の牛すじおでんが新登場！トロトロに煮込んだ牛すじをぜひご賞味ください。'),
-        NewsPost(title='営業時間変更のお知らせ', 
-                content='12月1日より、営業時間を17時から23時に変更いたしました。')
-    ]
-    
-    # Add all items to database
-    for items in [oden_items, drinks, sides]:
-        for item in items:
-            existing = MenuItem.query.filter_by(name=item.name).first()
-            if not existing:
-                db.session.add(item)
-    
-    for post in news_posts:
-        existing = NewsPost.query.filter_by(title=post.title).first()
-        if not existing:
-            db.session.add(post)
-    
-    db.session.commit()
-
-# Initialize database and add sample data when the app starts
-with app.app_context():
-    db.create_all()
-    add_sample_data()
