@@ -36,7 +36,7 @@ if not database_url:
 if database_url.startswith("postgres://"):
     database_url = database_url.replace("postgres://", "postgresql://", 1)
 
-logger.info(f"Initializing database connection...")
+logger.info(f"Configuring database connection...")
 
 app.config["SQLALCHEMY_DATABASE_URI"] = database_url
 app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
@@ -62,143 +62,18 @@ from models import MenuItem, NewsPost, ContactMessage, Review
 # Create database tables
 with app.app_context():
     try:
-        # Test database connection first
-        try:
-            db.session.execute(text('SELECT 1'))
-            logger.info("Database connection test successful")
-        except Exception as e:
-            logger.error(f"Database connection test failed: {str(e)}")
-            raise
+        # Test database connection
+        logger.info("Testing database connection...")
+        result = db.session.execute(text('SELECT 1'))
+        result.scalar()
+        logger.info("Database connection test successful")
 
-        # Begin a transaction for table creation
-        db.session.begin()
-        try:
-            logger.info("Creating database tables...")
-            db.create_all()
-            db.session.commit()
-            logger.info("Database tables created successfully")
-        except Exception as e:
-            logger.error(f"Failed to create tables: {str(e)}")
-            db.session.rollback()
-            raise
-
-        # Check if tables are empty before adding sample data
-        if not MenuItem.query.first() and not NewsPost.query.first() and not Review.query.first():
-            logger.info("Tables are empty, adding sample data...")
-            try:
-                # Sample reviews
-                reviews = [
-                    Review(
-                        author="Nak",
-                        content="店主は、塩対応ですが、おでんは美味しいです。ポテトはマックより美味しいです。",
-                        image_path="images/reviews/nak.jpg",
-                        date=datetime.utcnow()
-                    ),
-                    Review(
-                        author="May",
-                        content="店主と仲良くなると出汁もらえます。",
-                        image_path="images/reviews/may.jpg",
-                        date=datetime.utcnow()
-                    ),
-                    Review(
-                        author="Kom",
-                        content="お酒もちゃんと美味しいです。お客さんに合わせた濃淡も考えてくれる店主なのでついついおかわりしてしまいます。",
-                        image_path="images/reviews/kom.jpg",
-                        date=datetime.utcnow()
-                    ),
-                    Review(
-                        author="Kao",
-                        content="マスターも常連さんもみんないい人です。おでんが食べたいなら早めに。",
-                        image_path="images/スクリーンショット 2024-12-18 16.05.07.png",
-                        date=datetime.utcnow()
-                    ),
-                    Review(
-                        author="Ik",
-                        content="アットホームな会社です。",
-                        image_path="images/reviews/ik.jpg",
-                        date=datetime.utcnow()
-                    )
-                ]
-
-                # Begin a new transaction for sample data
-                db.session.begin()
-
-                try:
-                    # Add all sample data
-                    for review in reviews:
-                        db.session.add(review)
-                    logger.info("Added review data")
-
-                    # Sample menu items - Oden
-                    oden_items = [
-                        MenuItem(name='大根', name_jp='だいこん', description='じっくり煮込んだ大根です', price=200, category='oden', featured=True),
-                        MenuItem(name='玉子', name_jp='たまご', description='トロトロの半熟玉子', price=180, category='oden', featured=True),
-                        MenuItem(name='こんにゃく', name_jp='こんにゃく', description='歯ごたえのある手作りこんにゃく', price=150, category='oden'),
-                        MenuItem(name='牛すじ', name_jp='ぎゅうすじ', description='柔らかく煮込んだ牛すじ', price=300, category='oden', featured=True)
-                    ]
-
-                    # Sample menu items - Drinks
-                    drinks = [
-                        MenuItem(name='生ビール', description='冷えた生ビール', price=500, category='drinks'),
-                        MenuItem(name='日本酒', description='地元の銘酒', price=600, category='drinks'),
-                        MenuItem(name='焼酎', description='芋焼酎・麦焼酎', price=500, category='drinks')
-                    ]
-
-                    # Sample menu items - Sides
-                    sides = [
-                        MenuItem(name='枝豆', description='塩茹でした枝豆', price=300, category='sides'),
-                        MenuItem(name='冷奴', description='冷やっこ', price=250, category='sides'),
-                        MenuItem(name='たこわさ', description='新鮮なたこわさび', price=400, category='sides')
-                    ]
-
-                    # Add menu items
-                    for items in [oden_items, drinks, sides]:
-                        for item in items:
-                            db.session.add(item)
-                    logger.info("Added menu items")
-
-                    # Sample news posts
-                    news_posts = [
-                        NewsPost(
-                            title='年末年始の営業について', 
-                            content='12月30日から1月3日まで休業とさせていただきます。',
-                            date=datetime.utcnow()
-                        ),
-                        NewsPost(
-                            title='新メニュー追加のお知らせ', 
-                            content='季節限定の牛すじおでんが新登場！トロトロに煮込んだ牛すじをぜひご賞味ください。',
-                            date=datetime.utcnow()
-                        ),
-                        NewsPost(
-                            title='営業時間変更のお知らせ', 
-                            content='12月1日より、営業時間を17時から23時に変更いたしました。',
-                            date=datetime.utcnow()
-                        )
-                    ]
-
-                    # Add news posts
-                    for post in news_posts:
-                        db.session.add(post)
-                    logger.info("Added news posts")
-
-                    # Commit the transaction
-                    db.session.commit()
-                    logger.info("Successfully committed all sample data")
-
-                except Exception as e:
-                    logger.error(f"Error adding sample data: {str(e)}", exc_info=True)
-                    db.session.rollback()
-                    raise
-
-            except Exception as e:
-                logger.error(f"Error during sample data initialization: {str(e)}", exc_info=True)
-                raise
-
-        else:
-            logger.info("Tables already contain data, skipping sample data insertion")
+        # Create tables
+        db.create_all()
+        logger.info("Database tables created successfully")
 
     except Exception as e:
-        logger.error(f"Error during database initialization: {str(e)}", exc_info=True)
+        logger.error(f"Database initialization error: {str(e)}", exc_info=True)
         raise
 
 # Route handlers
@@ -275,7 +150,10 @@ def contact():
                 return redirect(url_for('contact'))
         except Exception as e:
             logger.error(f"Error in contact form submission: {str(e)}", exc_info=True)
+            db.session.rollback()
             flash('エラーが発生しました。', 'danger')
+        finally:
+            db.session.close()
 
     return render_template('contact.html')
 
