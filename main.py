@@ -1,5 +1,6 @@
 import logging
 from app import app, db
+from sqlalchemy import text
 
 # Configure logging
 logging.basicConfig(
@@ -13,7 +14,7 @@ if __name__ == "__main__":
         # Test database connection
         with app.app_context():
             try:
-                db.session.execute('SELECT 1')
+                db.session.execute(text('SELECT 1'))
                 logger.info("Database connection successful")
             except Exception as db_error:
                 logger.error(f"Database connection error: {str(db_error)}")
