@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="hero-section" style="background-image: url('https://images.unsplash.com/photo-1470256699805-a29e1b58598a')">
+<div class="hero-section" style="background-image: url('{{ url_for('static', filename='images/cooking1.png') }}')">
     <div class="container">
         <div class="hero-content">
             <h1>伝統の味 おでん屋</h1>
@@ -69,7 +69,7 @@
         <div class="row">
             <div class="col-md-3 mb-4">
                 <a href="{{ url_for('gallery') }}" class="gallery-thumbnail">
-                    <img src="{{ url_for('static', filename='images/about.png') }}" class="img-fluid rounded" alt="料理風景">
+                    <img src="{{ url_for('static', filename='images/cooking1.png') }}" class="img-fluid rounded" alt="料理風景">
                     <div class="gallery-caption">
                         <p>料理風景</p>
                     </div>
@@ -77,17 +77,17 @@
             </div>
             <div class="col-md-3 mb-4">
                 <a href="{{ url_for('gallery') }}" class="gallery-thumbnail">
-                    <img src="{{ url_for('static', filename='images/oden.jpg') }}" class="img-fluid rounded" alt="おでんの具材">
+                    <img src="{{ url_for('static', filename='images/cooking2.png') }}" class="img-fluid rounded" alt="調理風景">
                     <div class="gallery-caption">
-                        <p>おでんの具材</p>
+                        <p>調理風景</p>
                     </div>
                 </a>
             </div>
             <div class="col-md-3 mb-4">
                 <a href="{{ url_for('gallery') }}" class="gallery-thumbnail">
-                    <img src="{{ url_for('static', filename='スクリーンショット 2024-12-15 21.48.37.png') }}" class="img-fluid rounded" alt="調理風景">
+                    <img src="{{ url_for('static', filename='images/cooking3.png') }}" class="img-fluid rounded" alt="店内写真">
                     <div class="gallery-caption">
-                        <p>調理風景</p>
+                        <p>店内写真</p>
                     </div>
                 </a>
             </div>
