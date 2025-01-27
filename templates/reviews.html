@@ -15,26 +15,11 @@
                 <div class="review-card mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-1">
-                                    <div class="review-image-container">
-                                        {% if review.image_path %}
-                                            <img src="{{ url_for('static', filename=review.image_path) }}" class="img-fluid rounded-circle review-image" alt="{{ review.author }}様の写真">
-                                        {% else %}
-                                            <div class="review-image-placeholder">
-                                                <i class="fas fa-user fa-2x"></i>
-                                            </div>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                                <div class="col-md-11">
-                                    <div class="review-content">
-                                        <p class="review-text mb-3">{{ review.content }}</p>
-                                        <div class="review-meta">
-                                            <span class="author">{{ review.author }}</span>
-                                            <span class="date text-muted">{{ review.date.strftime('%Y年%m月%d日') }}</span>
-                                        </div>
-                                    </div>
+                            <div class="review-content">
+                                <p class="review-text mb-3">{{ review.content }}</p>
+                                <div class="review-meta">
+                                    <span class="author">{{ review.author }}</span>
+                                    <span class="date text-muted">{{ review.date.strftime('%Y年%m月%d日') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -46,26 +31,11 @@
                 <div class="review-card mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-1">
-                                    <div class="review-image-container">
-                                        {% if review.image_path %}
-                                            <img src="{{ url_for('static', filename=review.image_path) }}" class="img-fluid rounded-circle review-image" alt="{{ review.author }}様の写真">
-                                        {% else %}
-                                            <div class="review-image-placeholder">
-                                                <i class="fas fa-user fa-2x"></i>
-                                            </div>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                                <div class="col-md-11">
-                                    <div class="review-content">
-                                        <p class="review-text mb-3">{{ review.content }}</p>
-                                        <div class="review-meta">
-                                            <span class="author">{{ review.author }}</span>
-                                            <span class="date text-muted">{{ review.date.strftime('%Y年%m月%d日') }}</span>
-                                        </div>
-                                    </div>
+                            <div class="review-content">
+                                <p class="review-text mb-3">{{ review.content }}</p>
+                                <div class="review-meta">
+                                    <span class="author">{{ review.author }}</span>
+                                    <span class="date text-muted">{{ review.date.strftime('%Y年%m月%d日') }}</span>
                                 </div>
                             </div>
                         </div>
