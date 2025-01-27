@@ -1,6 +1,7 @@
 import os
 import logging
 from flask import Flask, render_template
+from datetime import datetime
 
 # Configure logging
 logging.basicConfig(
@@ -32,7 +33,17 @@ def news():
 
 @app.route('/reviews')
 def reviews():
-    return render_template('reviews.html', reviews=[])
+    # Create sample reviews
+    sample_reviews = [
+        {'author': 'Nak', 'content': '店主は、塩対応ですが、おでんは美味しいです。\nポテトはマックより美味しいです。', 'date': datetime.now()},
+        {'author': 'May', 'content': '店主と仲良くなると出汁もらえます。', 'date': datetime.now()},
+        {'author': 'Kom', 'content': 'お酒もちゃんと美味しいです。\nお客さんに合わせた濃淡も考えてくれる店主なのでついついおかわりしてしまいます。', 'date': datetime.now()},
+        {'author': 'Kao', 'content': 'マスターも常連さんもみんないい人です。\nおでんが食べたいなら早めに。', 'date': datetime.now()},
+        {'author': 'Ik', 'content': 'アットホームな会社です。', 'date': datetime.now()},
+        {'author': 'MONARIHA', 'content': '店主の魅力にやられてます。', 'date': datetime.now()},
+        {'author': 'MOMO', 'content': '美味しいおでんが食べれて、人生のアドバイスもくれます。', 'date': datetime.now()}
+    ]
+    return render_template('reviews.html', reviews=sample_reviews)
 
 @app.route('/social')
 def social():
