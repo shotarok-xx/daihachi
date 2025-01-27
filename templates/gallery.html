@@ -11,7 +11,7 @@
 <section class="gallery-section py-5">
     <div class="container">
         <div class="row">
-            <div class="col-md-3 mb-4">
+            <div class="col-md-4 mb-4">
                 <div class="gallery-item">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal1">
                         <img src="{{ url_for('static', filename='images/cooking1.png') }}" 
@@ -21,19 +21,9 @@
                 </div>
             </div>
 
-            <div class="col-md-3 mb-4">
+            <div class="col-md-4 mb-4">
                 <div class="gallery-item">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal2">
-                        <img src="{{ url_for('static', filename='images/cooking2.png') }}" 
-                             class="img-fluid rounded gallery-thumbnail" 
-                             alt="調理風景2">
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-md-3 mb-4">
-                <div class="gallery-item">
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal3">
                         <img src="{{ url_for('static', filename='images/cooking3.png') }}" 
                              class="img-fluid rounded gallery-thumbnail" 
                              alt="店内写真">
@@ -59,22 +49,6 @@
             </div>
 
             <div class="modal fade" id="galleryModal2" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">調理風景2</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <img src="{{ url_for('static', filename='images/cooking2.png') }}" 
-                                 class="img-fluid" 
-                                 alt="調理風景2">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal fade" id="galleryModal3" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">

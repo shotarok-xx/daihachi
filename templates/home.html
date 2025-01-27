@@ -10,64 +10,11 @@
     </div>
 </div>
 
-<section class="featured-items py-5">
-    <div class="container">
-        <h2 class="section-title">おすすめメニュー</h2>
-        <div class="row">
-            {% for item in featured_items %}
-            <div class="col-md-3 mb-4">
-                <div class="card">
-                    <img src="{{ url_for('static', filename='images/oden.jpg') }}" class="card-img-top" alt="{{ item.name }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ item.name }}</h5>
-                        <p class="card-text">{{ item.description }}</p>
-                        <p class="price">{{ item.price|int }}円</p>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
-<section class="about-section py-5 bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <img src="{{ url_for('static', filename='images/about.png') }}" class="img-fluid rounded" alt="おでんを調理する様子">
-            </div>
-            <div class="col-md-6">
-                <h2 class="section-title">私たちについて</h2>
-                <p>下丸子で30年間、変わらず続けてきたおでん屋の味。その秘密は、毎朝早くから心を込めて仕込む特製の透明な出汁にあります。選び抜いた昆布と煮干しをじっくり煮出し、雑味を一切残さない、澄みきった出汁が当店のこだわりです。その日に仕込んだ出汁でしか味わえない、まろやかで深い味わいを大切にしています。時間をかけて丁寧に作り上げたおでんを、一度ぜひご賞味ください。30年の感謝の気持ちを込めて、皆さまのお越しをお待ちしております。</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="news-section py-5">
-    <div class="container">
-        <h2 class="section-title">お知らせ</h2>
-        <div class="row">
-            {% for post in latest_news %}
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ post.title }}</h5>
-                        <p class="card-text">{{ post.content[:100] }}...</p>
-                        <p class="text-muted">{{ post.date.strftime('%Y年%m月%d日') }}</p>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
 <section class="gallery-preview py-5">
     <div class="container">
         <h2 class="section-title">ギャラリー</h2>
         <div class="row">
-            <div class="col-md-3 mb-4">
+            <div class="col-md-4 mb-4">
                 <a href="{{ url_for('gallery') }}" class="gallery-thumbnail">
                     <img src="{{ url_for('static', filename='images/cooking1.png') }}" class="img-fluid rounded" alt="料理風景">
                     <div class="gallery-caption">
@@ -75,15 +22,7 @@
                     </div>
                 </a>
             </div>
-            <div class="col-md-3 mb-4">
-                <a href="{{ url_for('gallery') }}" class="gallery-thumbnail">
-                    <img src="{{ url_for('static', filename='images/cooking2.png') }}" class="img-fluid rounded" alt="調理風景">
-                    <div class="gallery-caption">
-                        <p>調理風景</p>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 mb-4">
+            <div class="col-md-4 mb-4">
                 <a href="{{ url_for('gallery') }}" class="gallery-thumbnail">
                     <img src="{{ url_for('static', filename='images/cooking3.png') }}" class="img-fluid rounded" alt="店内写真">
                     <div class="gallery-caption">
@@ -91,7 +30,7 @@
                     </div>
                 </a>
             </div>
-            <div class="col-md-3 mb-4">
+            <div class="col-md-4 mb-4">
                 <a href="{{ url_for('gallery') }}" class="gallery-thumbnail text-center">
                     <div class="more-photos">
                         <i class="fas fa-images fa-3x"></i>
