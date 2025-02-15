@@ -1,8 +1,9 @@
 /* Navbar Logo Styling */
 .navbar-logo {
-    height: 80px;
+    height: 60px; /* ロゴの高さを調整 */
     width: auto;
     margin-right: 1rem;
+    object-fit: contain; /* ロゴのアスペクト比を保持 */
 }
 
 /* Base styles */
@@ -234,7 +235,6 @@ body {
     height: 100%;
     object-fit: cover;
 }
-
 
 
 /* Modal styles */
