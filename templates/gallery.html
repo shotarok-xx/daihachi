@@ -11,35 +11,82 @@
 <section class="gallery-section py-5">
     <div class="container">
         <div class="row">
-            {% for i in range(8) %}
-            <div class="col-md-3 mb-4">
+            <div class="col-md-4 mb-4">
                 <div class="gallery-item">
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal{{ i }}">
-                        <img src="{{ 'https://images.unsplash.com/photo-1514575110897-1253ff7b2ccb' if i % 2 == 0 else 'https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e' }}" 
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal1">
+                        <img src="{{ url_for('static', filename='images/83FD927E-0461-43B3-B0EE-7F4A9A188D8E.jpg') }}" 
                              class="img-fluid rounded gallery-thumbnail" 
-                             alt="ギャラリー画像 {{ i + 1 }}">
+                             alt="調理風景1">
                     </a>
                 </div>
             </div>
 
-            <!-- Modal -->
-            <div class="modal fade" id="galleryModal{{ i }}" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">{{ '調理風景' if i % 4 == 0 else ('おでん' if i % 4 == 1 else ('店内1' if i % 4 == 2 else '店内2')) }}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <img src="{{ url_for('static', filename='images/about.png' if i % 4 == 0 else ('images/oden.jpg' if i % 4 == 1 else ('images/interior1.jpg' if i % 4 == 2 else 'images/interior2.jpg'))) }}" 
-                                 class="img-fluid" 
-                                 alt="ギャラリー画像 {{ i + 1 }}">
-                        </div>
-                    </div>
+            <div class="col-md-4 mb-4">
+                <div class="gallery-item">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal2">
+                        <img src="{{ url_for('static', filename='images/1C889AD3-3E3A-4BF2-87DB-428D387C1A1F.jpg') }}" 
+                             class="img-fluid rounded gallery-thumbnail" 
+                             alt="調理風景2">
+                    </a>
                 </div>
             </div>
-            {% endfor %}
+
+            <div class="col-md-4 mb-4">
+                <div class="gallery-item">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal3">
+                        <img src="{{ url_for('static', filename='images/7C65A51D-941B-46A8-856F-DAAD203201BD.jpg') }}" 
+                             class="img-fluid rounded gallery-thumbnail" 
+                             alt="おでんの具材">
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="gallery-item">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal4">
+                        <img src="{{ url_for('static', filename='images/0E6DC3EC-09E5-45D1-8E63-297050B7AF98.jpg') }}" 
+                             class="img-fluid rounded gallery-thumbnail" 
+                             alt="店内の様子">
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="gallery-item">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal5">
+                        <img src="{{ url_for('static', filename='images/05D68A19-FAA0-4E5A-AB6D-DE4C731DAD6C.jpg') }}" 
+                             class="img-fluid rounded gallery-thumbnail" 
+                             alt="料理の様子">
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
+
+<!-- Modals -->
+{% for i in range(1, 6) %}
+<div class="modal fade" id="galleryModal{{ i }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ '調理風景' if i <= 2 else ('おでんの具材' if i == 3 else ('店内の様子' if i == 4 else '料理の様子')) }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {% set image_map = {
+                    1: '83FD927E-0461-43B3-B0EE-7F4A9A188D8E.jpg',
+                    2: '1C889AD3-3E3A-4BF2-87DB-428D387C1A1F.jpg',
+                    3: '7C65A51D-941B-46A8-856F-DAAD203201BD.jpg',
+                    4: '0E6DC3EC-09E5-45D1-8E63-297050B7AF98.jpg',
+                    5: '05D68A19-FAA0-4E5A-AB6D-DE4C731DAD6C.jpg'
+                } %}
+                <img src="{{ url_for('static', filename='images/' ~ image_map[i]) }}" 
+                     class="img-fluid" 
+                     alt="ギャラリー画像 {{ i }}">
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
 {% endblock %}
