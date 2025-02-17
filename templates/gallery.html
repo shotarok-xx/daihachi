@@ -12,20 +12,20 @@
     <div class="container">
         <div class="row">
             {% set images = [
-                ('IMG_5637.JPG', 'お店の様子'),
-                ('IMG_5634.jpg', '店内の雰囲気'),
-                ('IMG_5630.jpg', 'おでんの準備'),
-                ('IMG_5628.jpg', '調理場'),
-                ('IMG_5625.JPG', '店内'),
-                ('IMG_5623.JPG', '料理'),
-                ('IMG_5622.JPG', 'おでん')
+                ('attached_assets/IMG_5637.JPG', 'お店の様子'),
+                ('attached_assets/IMG_5634.jpg', '店内の雰囲気'),
+                ('attached_assets/IMG_5630.jpg', 'おでんの準備'),
+                ('attached_assets/IMG_5628.jpg', '調理場'),
+                ('attached_assets/IMG_5625.JPG', '店内'),
+                ('attached_assets/IMG_5623.JPG', '料理'),
+                ('attached_assets/IMG_5622.JPG', 'おでん')
             ] %}
 
             {% for image, caption in images %}
             <div class="col-md-4 mb-4">
                 <div class="gallery-item">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal{{ loop.index }}">
-                        <img src="{{ url_for('static', filename='images/' + image) }}" 
+                        <img src="{{ url_for('static', filename=image) }}" 
                              class="img-fluid rounded gallery-thumbnail" 
                              alt="{{ caption }}">
                     </a>
@@ -46,7 +46,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <img src="{{ url_for('static', filename='images/' + image) }}" 
+                <img src="{{ url_for('static', filename=image) }}" 
                      class="img-fluid" 
                      alt="{{ caption }}">
             </div>
