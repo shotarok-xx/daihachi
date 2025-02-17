@@ -14,6 +14,46 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "a secret key")
 
+# メニューデータ
+oden_items = [
+    {
+        'name': '玉子', 'name_jp': '玉子',
+        'description': '出汁がしみ込んだ定番の味',
+        'price': 200,
+        'image': 'S__135045168_0.jpg'
+    },
+    {
+        'name': '大根', 'name_jp': '大根',
+        'description': 'じっくり煮込んだトロトロ大根',
+        'price': 200,
+        'image': 'S__135045165_0.jpg'
+    },
+    {
+        'name': 'はんぺん', 'name_jp': 'はんぺん',
+        'description': 'ふわふわ食感のはんぺん',
+        'price': 200,
+        'image': 'S__135045163_0.jpg'
+    },
+    {
+        'name': 'こんにゃく', 'name_jp': 'こんにゃく',
+        'description': '出汁の旨味が染み込んだこんにゃく',
+        'price': 150,
+        'image': 'S__135045162_0.jpg'
+    },
+    {
+        'name': 'がんもどき', 'name_jp': 'がんもどき',
+        'description': '野菜の旨味が詰まったがんもどき',
+        'price': 200,
+        'image': 'S__135045160_0.jpg'
+    },
+    {
+        'name': 'キャベツ巻き', 'name_jp': 'キャベツ巻き',
+        'description': '新鮮なキャベツで包んだ具材',
+        'price': 250,
+        'image': 'S__135045159_0.jpg'
+    }
+]
+
 # Route handlers
 @app.route('/')
 def home():
@@ -21,7 +61,7 @@ def home():
 
 @app.route('/menu')
 def menu():
-    return render_template('menu.html', oden_items=[], drinks=[], sides=[])
+    return render_template('menu.html', oden_items=oden_items, drinks=[], sides=[])
 
 @app.route('/store')
 def store():
