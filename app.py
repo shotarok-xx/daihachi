@@ -17,38 +17,44 @@ app.secret_key = os.environ.get("FLASK_SECRET_KEY", "a secret key")
 # メニューデータ
 oden_items = [
     {
-        'name': '玉子', 'name_jp': '玉子',
-        'description': '出汁がしみ込んだ定番の味',
+        'name': '卵',
+        'name_jp': '卵',
+        'description': '定番の味',
         'price': 200,
         'image': 'S__135045168_0.jpg'
     },
     {
-        'name': '大根', 'name_jp': '大根',
-        'description': 'じっくり煮込んだトロトロ大根',
+        'name': '大根',
+        'name_jp': '大根',
+        'description': 'トロトロ食感',
         'price': 200,
         'image': 'S__135045165_0.jpg'
     },
     {
-        'name': 'はんぺん', 'name_jp': 'はんぺん',
-        'description': 'ふわふわ食感のはんぺん',
+        'name': 'はんぺん',
+        'name_jp': 'はんぺん',
+        'description': 'ふわふわ食感',
         'price': 200,
         'image': 'S__135045163_0.jpg'
     },
     {
-        'name': 'こんにゃく', 'name_jp': 'こんにゃく',
-        'description': '出汁の旨味が染み込んだこんにゃく',
+        'name': 'こんにゃく',
+        'name_jp': 'こんにゃく',
+        'description': '旨味たっぷり',
         'price': 150,
         'image': 'S__135045162_0.jpg'
     },
     {
-        'name': 'がんもどき', 'name_jp': 'がんもどき',
-        'description': '野菜の旨味が詰まったがんもどき',
+        'name': 'がんもどき',
+        'name_jp': 'がんもどき',
+        'description': '野菜の旨味',
         'price': 200,
         'image': 'S__135045160_0.jpg'
     },
     {
-        'name': 'キャベツ巻き', 'name_jp': 'キャベツ巻き',
-        'description': '新鮮なキャベツで包んだ具材',
+        'name': 'キャベツ巻き',
+        'name_jp': 'キャベツ巻き',
+        'description': '新鮮野菜',
         'price': 250,
         'image': 'S__135045159_0.jpg'
     }
