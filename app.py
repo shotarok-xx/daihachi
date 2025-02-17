@@ -54,10 +54,19 @@ oden_items = [
     }
 ]
 
+# お知らせデータ
+latest_news = [
+    {
+        'title': 'ホームページ開設のお知らせ',
+        'content': 'ホームページを作りました。今後ともおでん台八をよろしくおねがいいたします。',
+        'date': datetime.now()
+    }
+]
+
 # Route handlers
 @app.route('/')
 def home():
-    return render_template('home.html', featured_items=[], latest_news=[])
+    return render_template('home.html', featured_items=oden_items[:3], latest_news=latest_news)
 
 @app.route('/menu')
 def menu():
