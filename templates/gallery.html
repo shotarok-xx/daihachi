@@ -11,79 +11,44 @@
 <section class="gallery-section py-5">
     <div class="container">
         <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="gallery-item">
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal1">
-                        <img src="{{ url_for('static', filename='images/cooking1.jpg') }}" 
-                             class="img-fluid rounded gallery-thumbnail" 
-                             alt="Cooking Scene 1">
-                    </a>
-                </div>
-            </div>
+            {% set images = [
+                ('IMG_5637.JPG', 'お店の様子'),
+                ('IMG_5634.jpg', '店内の雰囲気'),
+                ('IMG_5630.jpg', 'おでんの準備'),
+                ('IMG_5628.jpg', '調理場'),
+                ('IMG_5625.JPG', '店内'),
+                ('IMG_5623.JPG', '料理'),
+                ('IMG_5622.JPG', 'おでん')
+            ] %}
 
+            {% for image, caption in images %}
             <div class="col-md-4 mb-4">
                 <div class="gallery-item">
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal2">
-                        <img src="{{ url_for('static', filename='images/cooking2.jpg') }}" 
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal{{ loop.index }}">
+                        <img src="{{ url_for('static', filename='images/' + image) }}" 
                              class="img-fluid rounded gallery-thumbnail" 
-                             alt="Cooking Scene 2">
+                             alt="{{ caption }}">
                     </a>
                 </div>
             </div>
-
-            <div class="col-md-4 mb-4">
-                <div class="gallery-item">
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal3">
-                        <img src="{{ url_for('static', filename='images/oden-ingredients.jpg') }}" 
-                             class="img-fluid rounded gallery-thumbnail" 
-                             alt="Oden Ingredients">
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <div class="gallery-item">
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal4">
-                        <img src="{{ url_for('static', filename='images/interior.jpg') }}" 
-                             class="img-fluid rounded gallery-thumbnail" 
-                             alt="Shop Interior">
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <div class="gallery-item">
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal5">
-                        <img src="{{ url_for('static', filename='images/customers.jpg') }}" 
-                             class="img-fluid rounded gallery-thumbnail" 
-                             alt="Customers Enjoying Food">
-                    </a>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
 
 <!-- Modals -->
-{% for i in range(1, 6) %}
-<div class="modal fade" id="galleryModal{{ i }}" tabindex="-1" aria-hidden="true">
+{% for image, caption in images %}
+<div class="modal fade" id="galleryModal{{ loop.index }}" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">{{ 'Cooking Scene' if i <= 2 else ('Oden Ingredients' if i == 3 else ('Shop Interior' if i == 4 else 'Customers Enjoying Food')) }}</h5>
+                <h5 class="modal-title">{{ caption }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {% set image_map = {
-                    1: 'cooking1.jpg',
-                    2: 'cooking2.jpg',
-                    3: 'oden-ingredients.jpg',
-                    4: 'interior.jpg',
-                    5: 'customers.jpg'
-                } %}
-                <img src="{{ url_for('static', filename='images/' ~ image_map[i]) }}" 
+                <img src="{{ url_for('static', filename='images/' + image) }}" 
                      class="img-fluid" 
-                     alt="Gallery Image {{ i }}">
+                     alt="{{ caption }}">
             </div>
         </div>
     </div>
