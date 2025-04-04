@@ -24,7 +24,7 @@
             ] %}
 
             {% for image, caption in images %}
-            <div class="col-md-4 mb-4">
+            <div class="col-4 mb-4">
                 <div class="gallery-item">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal{{ loop.index }}">
                         <img src="{{ url_for('static', filename=image) }}" 

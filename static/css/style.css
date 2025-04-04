@@ -236,6 +236,20 @@ body {
     object-fit: cover;
 }
 
+/* スマートフォン向けギャラリー調整 */
+@media (max-width: 767px) {
+    .gallery-thumbnail {
+        height: 100px;
+    }
+}
+
+/* 特に小さい画面用の調整 */
+@media (max-width: 575px) {
+    .gallery-thumbnail {
+        height: 80px;
+    }
+}
+
 
 /* Modal styles */
 .modal-body {
@@ -346,4 +360,17 @@ body {
     justify-content: center;
     background-color: #e9ecef;
     color: #adb5bd;
+}
+/* スマートフォン向けギャラリー調整 */
+@media (max-width: 767px) {
+    .gallery-thumbnail {
+        height: 100px;
+    }
+}
+
+/* 特に小さい画面用の調整 */
+@media (max-width: 575px) {
+    .gallery-thumbnail {
+        height: 80px;
+    }
 }
