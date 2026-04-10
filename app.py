@@ -14,6 +14,13 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "a secret key")
 
+from flask import redirect, request
+
+@app.before_request
+def redirect_to_www():
+    if request.host == "daihachi.tokyo":
+        return redirect(request.url.replace("daihachi.tokyo", "www.daihachi.tokyo"), code=301)
+
 # メニューデータ
 oden_items = [
     {
