@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: daihachi
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn main:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: FLASK_SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: daihachi-db
+          property: connectionString
+
+databases:
+  - name: daihachi-db
+    databaseName: daihachidb
+    user: daihachi
+    plan: free
